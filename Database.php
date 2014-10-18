@@ -9,4 +9,16 @@
 // PDO or Propel
 class Database {
 
+    public function select() {
+        
+    }
+
+    public function update() {
+
+    }
+
+    public function delete() {
+
+    }
+
 } 

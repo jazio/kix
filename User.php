@@ -1,45 +1,99 @@
 <?php
-
-class User
-{
-  // private - cannot be accessed directly, it needs a getter.
-  private $email;
-  private $password;
-  const MINCHARS = 8;
-
-  public function getEmail()
-  {
-    return $this->email;
-  }
-
-  public function setEmail($email)
-  {
-    return $this->email = $email;
-  }
-
-  public function getPassword()
-  {
-    return $this->password;
-  }
-
-  public function setPassword($password)
-  {
-
-    if (strlen($password) < 1) {
-      throw new Exception('Error Password of' . self::MINCHARS . 'too short', 1);
+include_once('Connector.php');
+class User {
+    // private - cannot be accessed directly, it needs a getter.
+    // @todo make use of magic methods to manages exceptional situations
+    const MINCHARS = 2;
+    public  $username;
+    private $email;
+    private $password;
+    private $db;
+    /**
+     * @param array $args
+     * This is called upon object creation. Constructor is called with optional arguments.
+     */
+    public function __construct(Array $args = array()) {
+        //@todo this is wrong. Do dependency injection.
+        $this->db = new Connector();
+        $this->db = $this->db->connect();
+        // Optional.
+        $this->args = $args;
     }
-    return $this->password = $password;
 
-  }
+    /**
+     * @param $username
+     * @return mixed
+     */
+    public function setUsername($username) {
+        return $this->username = $username;
+    }
 
-  public function login()
-  {
-    return "User login.";
-  }
+    /**
+     * @return mixed
+     */
+    public function getUsername() {
+        return $this->username;
+    }
 
-  public function logout()
-  {
-    return "User logout.";
-  }
+    /**
+     * @return mixed
+     */
+    public function getEmail() {
+        return $this->email;
+    }
 
+    /**
+     * @param $email
+     * @return mixed
+     */
+    public function setEmail($email) {
+        return $this->email = $email;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPassword() {
+        if (!empty($this->password)) {
+            return $this->password;
+        }
+    }
+
+    /**
+     * @param $password
+     * @throws Exception
+     */
+    public function setPassword($password) {
+
+        if (strlen($password) > self::MINCHARS) {
+            return $this->password = hash('sha256', $password, true);
+        } else {
+            throw new Exception('Error Password of' . self::MINCHARS . 'too short', 1);
+        }
+
+    }
+
+    public function login($username, $password) {
+        if (!empty($username) && !empty($password)) {
+            return "User login.";
+        }
+        return "Login failed.";
+    }
+
+    public function logout() {
+        return "User logout.";
+    }
+
+    public function register($username, $email, $password) {
+        $sql = "INSERT INTO users (username, email, password) VALUES (:username, :email, :password)";
+        $statement = $this->db->prepare($sql);
+        $statement->execute(array(':username' => $username, ':email' => $email, ':password' => $password ));
+    }
+
+    public function getUserList() {
+        foreach ($this->db->query('SELECT * from oops_users') as $row) {
+            print_r($row);
+        }
+
+    }
 }
