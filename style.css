@@ -10,3 +10,7 @@ input {
     weight: 10em;
     margin:5px;
 }
+
+.error{
+    color:red;
+}

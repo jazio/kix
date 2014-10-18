@@ -12,8 +12,8 @@ class User {
      * @param array $args
      * This is called upon object creation. Constructor is called with optional arguments.
      */
-    public function __construct($db, Array $args = array()) {
-        //Dependency injection.
+    public function __construct(Connector $db, Array $args = array()) {
+        // Dependency injection.
         $this->db = $db->connect();
         // Optional.
         $this->args = $args;
@@ -84,9 +84,16 @@ class User {
     }
 
     public function register($username, $email, $password) {
+        // @todo abstract the database layer
+        // @todo clear the persistent connection
         $sql = "INSERT INTO users (username, email, password) VALUES (:username, :email, :password)";
         $statement = $this->db->prepare($sql);
         $statement->execute(array(':username' => $username, ':email' => $email, ':password' => $password ));
+
+        if($statement) {
+            print "Dear {$username} welcome to the system";
+        };
+
     }
 
     public function getUserList() {

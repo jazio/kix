@@ -38,10 +38,7 @@ if ($_POST['submit'] == 'Register') {
 
     if ($field->isValid($username) && $field->isValid($password) && $field->isValid($email)) {
         $user = new User($db);
+        $password = $user->setPassword($password);
         $user->register($username, $email, $password);
-    }
-
-    else {
-        print "Form is not valid.";
     }
 }

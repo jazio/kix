@@ -11,11 +11,19 @@ class FormValidator {
     public $field;
 
     public function isValid($field) {
-        echo $field." field";
-        if (!empty($field)) {
+        if (empty($field)) {
+            print "Field {$field} not empty";
+            return false;
+        }
+
+        elseif (strlen($field) < 3) {
+            print "Field {$field} must be minimum 3 characters";
+            return false;
+        }
+
+        else {
             return true;
         }
-        return false;
     }
 
 } 
