@@ -1,0 +1,12 @@
+body {
+    background: blanchedalmond;
+    margin: 0 auto;
+    padding: 5%;
+}
+
+input {
+    padding: 0.6em;
+    font-size: 105%;
+    weight: 10em;
+    margin:5px;
+}

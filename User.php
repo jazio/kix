@@ -12,10 +12,9 @@ class User {
      * @param array $args
      * This is called upon object creation. Constructor is called with optional arguments.
      */
-    public function __construct(Array $args = array()) {
-        //@todo this is wrong. Do dependency injection.
-        $this->db = new Connector();
-        $this->db = $this->db->connect();
+    public function __construct($db, Array $args = array()) {
+        //Dependency injection.
+        $this->db = $db->connect();
         // Optional.
         $this->args = $args;
     }

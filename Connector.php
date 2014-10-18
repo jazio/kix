@@ -8,12 +8,16 @@
  */
 
 class Connector {
+
     public function connect() {
         //PDO MySQL
         try {
-            $connection = new PDO('mysql:host=localhost;dbname=oops', "root", "dev");
-            echo 'Connected to database<br />';
-            return $connection;
+            $conn = new PDO('mysql:host=localhost;dbname=oops', "root", "dev");
+
+            if ($conn) {
+                echo 'Connected to database<br />';
+            }
+            return $conn;
         }
         catch (PDOException $e) {
             print "Error!: " . $e->getMessage() . "<br/>";
@@ -22,6 +26,6 @@ class Connector {
     }
 
     public function disconnect() {
-        $connection = null;
+        $conn = null;
     }
 }

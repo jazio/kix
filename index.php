@@ -1,20 +1,18 @@
 <html>
-    <head>Facekix Register</head>
+    <head>Facekix Register
+        <link rel="stylesheet" href="style.css"/>
+    </head>
     <body>
-    <h1>Register:</h1>
-    <fieldset>
+    <h2>Register</h2>
     <form action="" method="POST">
-        <input type="text" name="username" value=""/><br/>
-        <input type="text" name="email" value=""/><br/>
-        <input type="password" name="password" value=""/><br/>
-        <input type="submit" name="submit" value="Login"/>
+        <input type="text" name="username" id="username" placeholder='Choose a username' value=""/><br/>
+        <input type="text" name="email" id="email" placeholder='Your Email' value=""/><br/>
+        <input type="password" name="password" id="password" placeholder="Your Password" value=""/><br/>
+
+        <input type="submit" name="submit" value="Register"/>
     </form>
-    </fieldset>
     </body>
 </html>
-
-
-
 <?php
 /**
  *
@@ -24,23 +22,26 @@
  */
 
 // this is empty before form submittion
-var_dump($_POST);
+//var_dump($_POST);
+require('User.php');
+require('FormValidator.php');
 
-if ($_POST['submit'] == 'Login') {
+if ($_POST['submit'] == 'Register') {
+
+    $field = new FormValidator();
+    $db = new Connector();
+
 
     $username = $_POST['username'];
     $password = $_POST['password'];
     $email = $_POST['email'];
 
-    require('User.php');
+    if ($field->isValid($username) && $field->isValid($password) && $field->isValid($email)) {
+        $user = new User($db);
+        $user->register($username, $email, $password);
+    }
 
-    $jaap = new User();
-    $jaap->setUsername($username);
-    $jaap->setPassword($password);
-    $jaap->setEmail($email);
-    $jaap->register($username, $email, $password);
-
-    var_dump($jaap);
-
-    //print_r($jaap->getUserList());
+    else {
+        print "Form is not valid.";
+    }
 }
