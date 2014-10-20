@@ -13,7 +13,7 @@ class User {
      * This is called upon object creation. Constructor is called with optional arguments.
      */
     public function __construct($db, Array $args = array()) {
-        //Dependency injection.
+        //Dependency injection. Object instantiation moved outside this class.
         $this->db = $db->connect();
         // Optional.
         $this->args = $args;
