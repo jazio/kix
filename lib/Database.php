@@ -1,16 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jazio
- * Date: 18.10.14
- * Time: 00:05
- */
-
+namespace lib;
 // PDO or Propel
 class Database {
 
     public function select() {
         
+    }
+
+    public function insert() {
+
     }
 
     public function update() {

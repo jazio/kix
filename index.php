@@ -20,14 +20,15 @@
  * Date: 16.10.14
  * Time: 19:04
  */
-
+require('autoloader.php');
 // this is empty before form submittion
-//var_dump($_POST);
-require('User.php');
-require('FormValidator.php');
+var_dump($_POST);
+use \lib\User;
+use \lib\FormValidator;
+use \lib\Connector;
 
-if ($_POST['submit'] == 'Register') {
-
+if (isset($_POST['submit'])) {
+    // prepare the dependency injection
     $field = new FormValidator();
     $db = new Connector();
 
@@ -42,3 +43,4 @@ if ($_POST['submit'] == 'Register') {
         $user->register($username, $email, $password);
     }
 }
+

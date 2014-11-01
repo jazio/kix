@@ -1,11 +1,12 @@
 <?php
+
+namespace lib;
 /**
- * Created by PhpStorm.
- * User: jazio
+ * FormValidator
  * Date: 16.10.14
  * Time: 19:04
  */
-
+// Refactor based on rules -- see video
 //http://stackoverflow.com/questions/737385/easiest-form-validation-library-for-php
 class FormValidator {
     public $field;
@@ -26,4 +27,4 @@ class FormValidator {
         }
     }
 
-} 
+}

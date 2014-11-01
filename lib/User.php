@@ -1,5 +1,9 @@
 <?php
-include_once('Connector.php');
+namespace lib;
+
+use \lib\Connector;
+
+
 class User {
     // private - cannot be accessed directly, it needs a getter.
     // @todo make use of magic methods to manages exceptional situations
@@ -63,7 +67,6 @@ class User {
      * @throws Exception
      */
     public function setPassword($password) {
-
         if (strlen($password) > self::MINCHARS) {
             return $this->password = hash('sha256', $password, true);
         } else {

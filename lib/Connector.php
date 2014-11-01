@@ -1,26 +1,23 @@
 <?php
-/**
- * Connector.
- * Connection to a database.
- * @todo: make it database agnostic
- * @todo: add several engines: http://www.phpro.org/tutorials/Introduction-to-PHP-PDO.html#4
- * Date: 18.10.14
- */
+namespace lib;
+
+use \PDO;
 
 class Connector {
 
     public function connect() {
         //PDO MySQL
         try {
-            $conn = new PDO('mysql:host=localhost;dbname=oops', "root", "dev");
-
+            $conn = new PDO('mysql:host=localhost;dbname=oops;charset=utf8', 'root', 'dev');
+            $conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+            var_dump($conn);
             if ($conn) {
                 echo 'Connected to database<br />';
             }
             return $conn;
         }
         catch (PDOException $e) {
-            print "Error!: " . $e->getMessage() . "<br/>";
+            print "Error!: Unable to connect " . $e->getMessage() . "<br/>";
             die();
         }
     }
