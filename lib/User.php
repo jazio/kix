@@ -67,8 +67,10 @@ class User {
      * @throws Exception
      */
     public function setPassword($password) {
+        //@todo move to Validation class
         if (strlen($password) > self::MINCHARS) {
-            return $this->password = hash('sha256', $password, true);
+            // You need a varchar(64) in database
+            return $this->password = hash('sha256', $password);
         } else {
             throw new Exception('Error Password of' . self::MINCHARS . 'too short', 1);
         }
@@ -76,10 +78,24 @@ class User {
     }
 
     public function login($username, $password) {
-        if (!empty($username) && !empty($password)) {
-            return "User login.";
-        }
-        return "Login failed.";
+            // Encode password.
+            $password = $this->setPassword($password);
+            $sql = "SELECT username, password FROM users WHERE username=:username and password=:password LIMIT 1" ;
+            $q = $this->db->prepare($sql);
+            $q->bindParam(':username', $username);
+            $q->bindParam(':password', $password);
+            $q->execute();
+            $total = $q->rowCount();
+            $row = $q->fetchAll();
+
+
+            if ($total > 0) {
+                $_SESSION['username'] = $username;
+                $_SESSION['password'] = $password;
+            }
+            else {
+                return 'No rows.';
+            }
     }
 
     public function logout() {
@@ -90,12 +106,20 @@ class User {
         // @todo abstract the database layer
         // @todo clear the persistent connection
         $sql = "INSERT INTO users (username, email, password) VALUES (:username, :email, :password)";
-        $statement = $this->db->prepare($sql);
-        $statement->execute(array(':username' => $username, ':email' => $email, ':password' => $password ));
-
-        if($statement) {
+        $q = $this->db->prepare($sql);
+        $q->bindParam(':username', $username);
+        $q->bindParam(':email', $email);
+        $q->bindParam(':password', $password);
+        $q->execute();
+        $total = $q->rowCount();
+        $row = $q->fetchAll();
+        if($total > 0) {
             print "Dear {$username} welcome to the system";
         };
+
+    }
+
+    public function checkUserExists($username) {
 
     }
 

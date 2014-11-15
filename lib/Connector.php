@@ -1,6 +1,7 @@
 <?php
 namespace lib;
 
+// this \ is crucial.
 use \PDO;
 
 class Connector {
@@ -8,9 +9,10 @@ class Connector {
     public function connect() {
         //PDO MySQL
         try {
+            // If you change database engine, you only need to change this line.
             $conn = new PDO('mysql:host=localhost;dbname=oops;charset=utf8', 'root', 'dev');
+            // Get a PDOException if any of the queries fail - No need to check explicitly.
             $conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
-            var_dump($conn);
             if ($conn) {
                 echo 'Connected to database<br />';
             }
