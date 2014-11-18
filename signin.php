@@ -1,24 +1,13 @@
 <?php
 session_start();
-?>
-<html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="css/style.css">
-    </head>
-    <body>
-    <?php include 'header.php'; ?>
-    <div class="content">
-    <h2>Sign In</h2>
-    <form action="" method="POST">
-        <input type="text" name="username" id="username" placeholder='Choose a username' value=""/><br/>
-        <input type="password" name="password" id="password" placeholder="Your Password" value="" /><br/>
+require_once 'vendor/autoload.php';
 
-        <input type="submit" name="submit" value="Sign In"/>
-    </form>
-        </div>
-    </body>
-</html>
-<?php
+//@todo move them to config
+$loader = new Twig_Loader_Filesystem('./templates');
+$twig = new Twig_Environment($loader, array(
+    'cache' => false,
+));
+
 /**
  *
  * User: jazio
@@ -37,22 +26,24 @@ if (isset($_POST['submit'])) {
     // prepare the dependency injection
     $field = new FormValidator();
     $db = new Connector();
-
-    $_SESSION['username'] = $_POST['username'];
+    // Incorect only assign them to session if they are valid!!!
+    /*$_SESSION['username'] = $_POST['username'];
     $_SESSION['password'] = $_POST['password'];
 
     $username = $_SESSION['username'];
-    $password = $_SESSION['password'];
+    $password = $_SESSION['password'];*/
     //var_dump($_SESSION, 'session');
 
-    if ($field->isValid($username, 'text') && $field->isValid($password, 'password')) {
+    if ($field->isValid($_POST['username'], 'text') && $field->isValid($_POST['password'], 'password')) {
         $user = new User($db);
-        $q = $user->login($username, $password);
+        $q = $user->login($_POST['username'], $_POST['password']);
         var_dump($q);
     }
 
     else {
-        print 'out';
+        $message = 'Your credentials are not valid';
     }
+} else {
+    echo $twig->render('signin.twig', array('name' => 'Fabien'));
 }
 

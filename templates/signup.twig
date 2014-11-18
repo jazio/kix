@@ -1,0 +1,13 @@
+{% extends 'layout.twig' %}
+{% set active = 'signout' %}
+{% block content %}
+    <!-- Signin
+    ================================================== -->
+    <form action="" method="POST">
+        <input type="text" name="username" id="username" placeholder='Choose a username' value=""/><br/>
+        <input type="text" name="email" id="email" placeholder='Your Email' value=""/><br/>
+        <input type="password" name="password" id="password" placeholder="Your Password" value=""/><br/>
+
+        <input type="submit" name="submit" value="Register"/>
+    </form>
+{% endblock %}

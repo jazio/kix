@@ -1,14 +1,12 @@
-<html>
-<head>
-    <title>HTML Form</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-</head>
-<body>
-<?php include 'header.php'; ?>
-    <div class="content">
-       <p>Welcome. Fill free to sign in</p>
-    </div>
+<?php
+
+require_once 'vendor/autoload.php';
 
 
-</body>
-</html>
+$loader = new Twig_Loader_Filesystem('./templates');
+$twig = new Twig_Environment($loader, array(
+    'cache' => false,
+));
+
+echo $twig->render('layout.twig', array('name' => 'Fabien'));
+

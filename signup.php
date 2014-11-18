@@ -1,22 +1,12 @@
-<html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="css/style.css">
-    </head>
-    <body>
-    <?php include 'header.php'; ?>
-    <div class="content">
-    <h2>Register</h2>
-    <form action="" method="POST">
-        <input type="text" name="username" id="username" placeholder='Choose a username' value=""/><br/>
-        <input type="text" name="email" id="email" placeholder='Your Email' value=""/><br/>
-        <input type="password" name="password" id="password" placeholder="Your Password" value=""/><br/>
-
-        <input type="submit" name="submit" value="Register"/>
-    </form>
-        </div>
-    </body>
-</html>
 <?php
+require_once 'vendor/autoload.php';
+//@todo move them to config
+$loader = new Twig_Loader_Filesystem('./templates');
+$twig = new Twig_Environment($loader, array(
+'cache' => false,
+));
+
+
 /**
  *
  * User: jazio
@@ -45,5 +35,9 @@ if (isset($_POST['submit'])) {
         $password = $user->setPassword($password);
         $user->register($username, $email, $password);
     }
+}
+
+else {
+    echo $twig->render('signin.twig', array('name' => 'Fabien'));
 }
 
