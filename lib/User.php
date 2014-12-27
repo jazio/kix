@@ -67,12 +67,12 @@ class User {
      * @throws Exception
      */
     public function setPassword($password) {
-        //@todo move to Validation class
+        //@todo move to Validation or Utils class
         if (strlen($password) > self::MINCHARS) {
             // You need a varchar(64) in database
             return $this->password = hash('sha256', $password);
         } else {
-            throw new Exception('Error Password of' . self::MINCHARS . 'too short', 1);
+            throw new \Exception('Error Password of' . self::MINCHARS . 'too short', 1);
         }
 
     }
@@ -80,6 +80,7 @@ class User {
     public function login($username, $password) {
             // Encode password.
             $password = $this->setPassword($password);
+
             $sql = "SELECT username, password FROM users WHERE username=:username and password=:password LIMIT 1" ;
             $q = $this->db->prepare($sql);
             $q->bindParam(':username', $username);
@@ -124,7 +125,7 @@ class User {
     }
 
     public function getUserList() {
-        foreach ($this->db->query('SELECT * from oops_users') as $row) {
+        foreach ($this->db->query('SELECT * from users') as $row) {
             print_r($row);
         }
 

@@ -1,27 +1,18 @@
 <?php
-require_once 'vendor/autoload.php';
-//@todo move them to config
-$loader = new Twig_Loader_Filesystem('./templates');
-$twig = new Twig_Environment($loader, array(
-'cache' => false,
-));
-
 
 /**
- *
- * User: jazio
- * Date: 16.10.14
- * Time: 19:04
+ * Sign Up: Creating an account.
  */
-require('autoloader.php');
-// this is empty before form submittion
-var_dump($_POST);
+require_once 'vendor/autoload.php';
+require_once 'config/config.php';
+require_once 'autoloader.php';
+
 use \lib\User;
 use \lib\FormValidator;
 use \lib\Connector;
 
 if (isset($_POST['submit'])) {
-    // prepare the dependency injection
+    // Prepare the dependency injection.
     $field = new FormValidator();
     $db = new Connector();
 
@@ -30,14 +21,22 @@ if (isset($_POST['submit'])) {
     $password = $_POST['password'];
     $email = $_POST['email'];
 
-    if ($field->isValid($username) && $field->isValid($password) && $field->isValid($email)) {
-        $user = new User($db);
-        $password = $user->setPassword($password);
-        $user->register($username, $email, $password);
+    if ($field->isValid($username,'text') && $field->isValid($password, 'password') && $field->isValid($email,'email')) {
+
+        try {
+            $user = new User($db);
+            $password = $user->setPassword($password);
+            $user->register($username, $email, $password);
+            echo $twig->render('home.twig', array('message' => 'Dear {$username} welcome to the brotherhood.'));
+        }
+        catch (Exception $e) {
+            throw new \Exception('Cannot register.' . $e->getMessage());
+        }
+    } else {
+        echo $twig->render('signup.twig', array('message' => 'Error ' .  $field->err2));
     }
 }
-
+// Render the form.
 else {
-    echo $twig->render('signin.twig', array('name' => 'Fabien'));
+    echo $twig->render('signup.twig', array('message' => 'Fill in the form to create your account.'));
 }
-

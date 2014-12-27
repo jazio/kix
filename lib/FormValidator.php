@@ -6,17 +6,21 @@ namespace lib;
  * Date: 16.10.14
  * Time: 19:04
  */
+    // watch this https://www.youtube.com/watch?v=netHLn9TScY&list=PLfdtiltiRHWGQrNSFxCE9mxspdpX_JleP
 // Refactor based on rules -- see video
 //http://stackoverflow.com/questions/737385/easiest-form-validation-library-for-php
+// http://cipriancociorba.com/php-form-validation-part-2-building-the-validator-class/
 class FormValidator {
     public $field;
     public $type;
+    public $err = array();
 
     public function isValid($field, $type = 'text') {
-
         // Universal tests
         if (empty($field)) {
-            print "Field {$field} is empty";
+            $this->err[] = "Field ". $field . " is empty";
+            echo $field;
+            //var_dump($this->err);
             return false;
         }
 
@@ -25,20 +29,22 @@ class FormValidator {
             case 'text':
                 if (strlen($field) < 3) {
                     //@todo replace $field with field name
-                    print "Field {$field} must be minimum 4 characters";
+                    $this->err[] = "Field {$field} must be minimum 3 characters";
                     return false;
-                }
-                else {
-                    return true;
                 }
                 break;
             case 'password':
-                return true;
+
                 break;
             default:
-                return true;
+
                 break;
         }
+    return true;
+    }
+
+    public function setError($errors) {
+        $this->errors[] = $errors;
     }
 
 }

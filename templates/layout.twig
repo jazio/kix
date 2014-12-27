@@ -6,10 +6,9 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
+<!-- Use include to add static chunks -->
 {% include 'navbar.twig' %}
 <div class="content">
-    {{ name }}
-
     {% block content %}{% endblock %}
 </div>
 

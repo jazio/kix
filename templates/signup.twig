@@ -1,8 +1,11 @@
 {% extends 'layout.twig' %}
-{% set active = 'signout' %}
+{% set active = 'signup' %}
 {% block content %}
-    <!-- Signin
+
+    <!-- Signup
     ================================================== -->
+   <strong>{{ message }}</strong>
+<div id="signup">
     <form action="" method="POST">
         <input type="text" name="username" id="username" placeholder='Choose a username' value=""/><br/>
         <input type="text" name="email" id="email" placeholder='Your Email' value=""/><br/>
@@ -10,4 +13,5 @@
 
         <input type="submit" name="submit" value="Register"/>
     </form>
+</div>
 {% endblock %}
