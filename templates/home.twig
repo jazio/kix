@@ -1,8 +1,23 @@
 {% extends 'layout.twig' %}
 {% set active = 'signin' %}
+
 {% block content %}
-    <h1>Welcome to Facekix</h1>
-    {{ message }}
 
+    {% if user|length > 0 %}
+        <ul>
+            {% for user in users %}
+                <li>{{ user.username|e }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 
+    {% if user|length <= 0  %}
+        <p>Use the upper menu to login.</p>
+    {% else %}
+        <h1>Welcome to Facekix</h1>
+        <div id="message">{{ message }}</div>
+        <blockquote>
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        </blockquote>
+    {% endif %}
 {% endblock %}

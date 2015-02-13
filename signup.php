@@ -22,19 +22,25 @@ if (isset($_POST['submit'])) {
     $email = $_POST['email'];
 
     if ($field->isValid($username,'text') && $field->isValid($password, 'password') && $field->isValid($email,'email')) {
-
         try {
             $user = new User($db);
-            $password = $user->setPassword($password);
-            $user->register($username, $email, $password);
-            echo $twig->render('home.twig', array('message' => 'Dear {$username} welcome to the brotherhood.'));
+            if(!empty($password)) {
+                $password = $user->setPassword($password);
+            }
+            $q = $user->register($username, $email, $password);
+            if ($q > 0) {
+                echo $twig->render('home.twig', array('message' => 'Welcome to the brotherhood.'));
+            }
+            else {
+                echo $twig->render('signup.twig', array('message' => 'Please fill in the form'));
+            }
         }
         catch (Exception $e) {
-            throw new \Exception('Cannot register.' . $e->getMessage());
+            
+            echo $twig->render('signup.twig', array('message' => 'Cannot register'. $e->getMessage()));
+            //throw new \Exception('Cannot register.' . $e->getMessage());
         }
-    } else {
-        echo $twig->render('signup.twig', array('message' => 'Error ' .  $field->err2));
-    }
+   }
 }
 // Render the form.
 else {

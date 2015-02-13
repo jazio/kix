@@ -18,13 +18,12 @@ class FormValidator {
     public function isValid($field, $type = 'text') {
         // Universal tests
         if (empty($field)) {
-            $this->err[] = "Field ". $field . " is empty";
-            echo $field;
-            //var_dump($this->err);
-            return false;
+            $this->err[] = "Field " . $field . " is empty";
         }
-
+        return true;
+    }
         // Field specific tests
+        /*
         switch ($type) {
             case 'text':
                 if (strlen($field) < 3) {
@@ -43,8 +42,9 @@ class FormValidator {
     return true;
     }
 
+
     public function setError($errors) {
         $this->errors[] = $errors;
     }
-
+*/
 }

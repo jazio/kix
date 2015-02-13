@@ -8,4 +8,4 @@ $twig = new Twig_Environment($loader, array(
     'cache' => false,
 ));
 
-echo $twig->render('layout.twig', array('name' => 'Fabien'));
+echo $twig->render('signin.twig');

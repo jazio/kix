@@ -18,12 +18,14 @@ body {
 
 .header .logo {
     position: absolute;
-    left: 10px;
+    left: 25px;
     font-size: 200%;
 }
 
 .header .logo a {
     color: aliceblue;
+    font: Helvetica, 'Arial', sans-serif;
+    text-shadow:1px 1px 0px #000000;
 }
 
 .header .user {
@@ -46,4 +48,9 @@ body {
 input {
     padding: 10px;
     font-size: 140%;
+}
+
+#message {
+    background: lightsalmon;
+    padding: 10px;
 }

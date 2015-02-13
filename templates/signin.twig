@@ -1,6 +1,7 @@
 {% extends 'layout.twig' %}
 {% set active = 'signin' %}
 {% block content %}
+    {% if message %}<div id="message">{{ message }}</div>{% endif %}
     <p>
         Connect with friends and the
         world around you on Facekix.
