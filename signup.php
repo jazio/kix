@@ -24,12 +24,9 @@ if (isset($_POST['submit'])) {
     if ($field->isValid($username,'text') && $field->isValid($password, 'password') && $field->isValid($email,'email')) {
         try {
             $user = new User($db);
-            if(!empty($password)) {
-                $password = $user->setPassword($password);
-            }
             $q = $user->register($username, $email, $password);
-            if ($q > 0) {
-                echo $twig->render('home.twig', array('message' => 'Welcome to the brotherhood.'));
+            if ($q == 1) {
+                echo $twig->render('home.twig', array('message' => 'Welcome for the first time.'));
             }
             else {
                 echo $twig->render('signup.twig', array('message' => 'Please fill in the form'));

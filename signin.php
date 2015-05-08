@@ -18,14 +18,12 @@ if (isset($_POST['submit'])) {
     $db = new Connector();
     $username = $_POST['username'];
     $password = $_POST['password'];
-
-
             if ($field->isValid($username,'text') && $field->isValid($password,'password')) {
-                $user = new User($db);
 
                 try {
+                    $user = new User($db);
                     $q = $user->login($username, $password);
-                    if ($q >= 1) {
+                    if ($q == 1) {
                         session_start();
                         $_SESSION['login'] = 1;
                         echo $twig->render('home.twig', array(

@@ -78,7 +78,6 @@ class User {
     }
 
     public function login($username, $password) {
-            // Encode password.
             $password = $this->setPassword($password);
 
             $sql = "SELECT username, password FROM users WHERE username=:username and password=:password LIMIT 1" ;
@@ -96,6 +95,8 @@ class User {
     }
 
     public function register($username, $email, $password) {
+        $password = $this->setPassword($password);
+
         $sql = "INSERT INTO users (username, email, password) VALUES (:username, :email, :password)";
         $q = $this->db->prepare($sql);
         $q->bindParam(':username', $username);

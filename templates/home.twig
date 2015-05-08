@@ -2,18 +2,14 @@
 {% set active = 'signin' %}
 
 {% block content %}
-    {% if user|length <= 0  %}
-        <p>Use the upper menu to login.</p>
-    {% else %}
-        <h1>Welcome to Kix</h1>
+        <h1>Welcome to OOPS</h1>
         <div id="message">{{ message }}</div>
         <blockquote>
-            "Connect with friends and the world around you on Kix.
-            See photos and updates from friends in KixNews Feed.
-            Share what's new in your life on your KixTimeline.
-            Find more of what you're looking for with KixSearch"
+            "Connect with friends and the world around you on OOPS.
+            See photos and updates from friends in OOPSNews Feed.
+            Share what's new in your life on your OOPSTimeline.
+            Find more of what you're looking for with OOPSSearch"
         </blockquote>
-    {% endif %}
 {% endblock %}
 
 

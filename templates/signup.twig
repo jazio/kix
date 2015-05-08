@@ -1,7 +1,7 @@
 {% extends 'layout.twig' %}
 {% set active = 'signup' %}
 {% block content %}
-    <div id="message">{{ message }}</div>
+    {% if message %}<div id="message">{{ message }}</div>{% endif %}
     <!-- Signup
     ================================================== -->
 <div id="signup">

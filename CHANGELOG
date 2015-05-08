@@ -1,0 +1,4 @@
+0.0.2
+Fixed the password table truncate causing the key to invalidate
+0.0.1
+Added Twig support
