@@ -2,9 +2,7 @@
 /**
  * Sign In
  */
-require_once 'vendor/autoload.php';
 require_once 'config/config.php';
-require_once 'autoloader.php';
 
 use \lib\User;
 use \lib\FormValidator;

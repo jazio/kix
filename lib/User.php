@@ -24,18 +24,18 @@ class User {
     }
 
     /**
+     * @return mixed
+     */
+    public function getUsername() {
+        return $this->username;
+    }
+
+    /**
      * @param $username
      * @return mixed
      */
     public function setUsername($username) {
         return $this->username = $username;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getUsername() {
-        return $this->username;
     }
 
     /**
@@ -109,6 +109,15 @@ class User {
     }
 
     public function checkUserExists($username) {
+        $sql = "SELECT username FROM users WHERE username=:username LIMIT 1" ;
+        $q = $this->db->prepare($sql);
+        $q->bindParam(':username', $username);
+        $q->execute();
+        if ($q->rowCount() >= 1) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
 
     }
 

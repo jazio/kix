@@ -3,9 +3,7 @@
 /**
  * Sign Up: Creating an account.
  */
-require_once 'vendor/autoload.php';
 require_once 'config/config.php';
-require_once 'autoloader.php';
 
 use \lib\User;
 use \lib\FormValidator;
@@ -15,7 +13,6 @@ if (isset($_POST['submit'])) {
     // Prepare the dependency injection.
     $field = new FormValidator();
     $db = new Connector();
-
 
     $username = $_POST['username'];
     $password = $_POST['password'];
