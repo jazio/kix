@@ -13,7 +13,7 @@ class FormValidator {
     public $err = array();
 
     public function isValid($field, $type = 'text') {
-        // Universal tests
+        // Universal tests.
         if (empty($field)) {
             $this->err[] = "Field " . $field . " is empty";
         }

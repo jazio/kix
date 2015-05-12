@@ -36,7 +36,7 @@ if (isset($_POST['submit'])) {
         }
    }
 }
-// Render the form.
+// Render the empty form.
 else {
     echo $twig->render('signup.twig', array('message' => 'Fill in the form to create your account.'));
 }

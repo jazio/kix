@@ -8,10 +8,8 @@ use \lib\User;
 use \lib\FormValidator;
 use \lib\Connector;
 
-// @todo Asyncronous submit via Ajax http://cipriancociorba.com/php-form-validation-part-1-building-the-form/
-
 if (isset($_POST['submit'])) {
-    // prepare the dependency injection
+    // Prepare the dependency injection.
     $field = new FormValidator();
     $db = new Connector();
     $username = $_POST['username'];

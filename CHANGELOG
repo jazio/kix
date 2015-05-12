@@ -1,4 +1,29 @@
-0.0.2
-Fixed the password table truncate causing the key to invalidate
-0.0.1
-Added Twig support
+Branch 0.0.4 Upcoming.
+Roll your own PDO class [1]
+Voting [2]
+Asyncronous submit via Ajax [2]
+
+Branch 0.0.3 Upcoming
+  [feature]
+  Add User name and surname.
+  Bootstrap Integration.
+  Sidebar - Registered users.
+  User can post on his wall.
+  Symfony Profiler.
+
+  [Refactoring]
+  Move PDO credentials to config.php [1]
+  Create transactions [1]
+  Use cookies
+  Better Validation class.
+
+References.
+[1] http://culttt.com/2012/10/01/roll-your-own-pdo-php-class/
+[2] http://cipriancociorba.com/php-form-validation-part-1-building-the-form/
+
+0.0.2 Branch Stable [master]
+  Fixed the password table truncate causing the key to invalidate
+0.0.1 Obsolete
+  Added Twig support
+
+
